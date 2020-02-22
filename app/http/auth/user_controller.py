@@ -1,7 +1,13 @@
+
 from app.http.controller import Controller
 from app.http.auth.form import LoginForm
-from flask_login import current_user, login_user
 from app.model.user import User
+from flask_login import current_user, login_user
+from flask import request
+from werkzeug.urls import url_parse
+
+
+
 
 class User_Controller(Controller):
 
@@ -12,11 +18,13 @@ class User_Controller(Controller):
         if form.validate_on_submit():
             user = User.query.filter_by(username=form.username.data).first()
             if user is None or not user.check_password(form.password.data):
-                flash('Invalid username or password')
-                return redirect(url_for('login'))
+                self.flash_message('Invalid username or password')
+                return self.redirect_to('/')
             login_user(user, remember=form.remember_me.data)
-            return self.redirect_to('/')
-        return self.view('index', title='Sign In', form=form)
+            next_page = request.args.get('next')
+            if not next_page or url_parse(next_page).netloc != '':
+                next_page = '/home'
+        return self.redirect_to(next_page)
     
 
 

@@ -1,3 +1,5 @@
+
+ENV='development'
 # Statement for enabling the development environment
 DEBUG = True
 
