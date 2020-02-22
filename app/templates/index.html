@@ -14,5 +14,16 @@
             <input id="remember_me" name="remember_me" type="checkbox" value="y"> <label for="remember_me">Remember Me</label>
             <input id="submit" name="submit" type="submit" value="Sign In">
           </form>  
+          {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <ul class=flashes>
+            {% for message in messages %}
+            <li>{{ message }}</li>
+            {% endfor %}
+            </ul>
+        {% endif %}
+        {% endwith %}
+
+          
     </body>
 </html>

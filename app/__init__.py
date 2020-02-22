@@ -6,7 +6,7 @@ from flask_login import LoginManager
 
 app = Flask(__name__)
 
-app.config.from_object(config)
+app.config.from_object(config.Config)
 
 db = SQLAlchemy(app)
 
