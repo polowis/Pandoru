@@ -46,3 +46,4 @@ class User_Controller(Controller):
         logout_user()
         return self.redirect_to('/')
 
+UserController = User_Controller()
