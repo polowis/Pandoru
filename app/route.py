@@ -26,6 +26,7 @@ def load_user(request):
 
 route.get('/', HomeController.index)
 route.post('/login', UserController.login)
+route.post('/logout', UserController.logout)
 
 
 @app.route('/home', methods=['GET'])
@@ -33,9 +34,7 @@ route.post('/login', UserController.login)
 def home():
     return Home_Controller().home()
 
-@app.route('/logout', methods=['POST'])
-def logout():
-    return User_Controller().logout()
+
 
 @app.route('/register', methods=['POST', 'GET'])
 def register():
