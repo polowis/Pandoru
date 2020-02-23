@@ -5,7 +5,7 @@ from app import db
 from app.http.auth.form import LoginForm, RegisterForm
 from app.model.user import User
 from flask_login import current_user, login_user, logout_user
-from flask import request
+from flask import request, session
 from werkzeug.urls import url_parse
 from app.framework.requests import requests
 
@@ -19,9 +19,14 @@ class User_Controller(Controller):
         if current_user.is_authenticated:
             return self.redirect_to('/home')
         form = LoginForm()
-        if form.validate_on_submit():
-            user = User.query.filter_by(username=requests('username')).first()
-            if user is None or not user.check_password(requests('password')):
+        username = requests('username')
+        password = requests('password')
+        if username == '' or password == '':
+            self.flash_message('Field cannot be empty')
+            self.redirect_to('/')
+        else:
+            user = User.query.filter_by(email=username).first()
+            if user is None and not user.check_password(password):
                 self.flash_message('Invalid username or password')
                 return self.redirect_to('/')
             login_user(user, remember=form.remember_me.data)

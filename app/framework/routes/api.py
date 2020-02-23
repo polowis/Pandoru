@@ -2,7 +2,7 @@ from app import app
 from importlib import import_module
 from app.framework.routes.route_action import getFunction, getModule
 
-class Route:
+class API:
     def get(self, url, view_function, name=None, middleware=None):
         if isinstance(view_function, str):
             try:
@@ -29,4 +29,4 @@ class Route:
         
         app.add_url_rule(url, name, view_func=res, methods=['POST'])
         
-route = Route()
+api = API
