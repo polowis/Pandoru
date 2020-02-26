@@ -16,7 +16,6 @@ class Route:
         middleware()
         app.add_url_rule(url, name, view_func=res, methods=['GET'])
         
-        
 
     def post(self, url, view_function, name=None, middleware=None):
         if isinstance(view_function, str):

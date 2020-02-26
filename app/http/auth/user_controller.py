@@ -30,6 +30,7 @@ class User_Controller(Controller):
                 self.flash_message('Invalid username or password')
                 return self.redirect_to('/')
             login_user(user, remember=form.remember_me.data)
+            session['user'] = user
             next_page = request.args.get('next')
             if not next_page or url_parse(next_page).netloc != '':
                 next_page = '/home'

@@ -1,4 +1,4 @@
-from flask import render_template, flash, redirect
+from flask import render_template, flash, redirect, current_app
 from app import app, login
 from app.http.auth.form import LoginForm
 from app.http.auth.user_controller import UserController
@@ -35,7 +35,7 @@ def test():
 route.get('/', HomeController.index, middleware=first)
 route.post('/login', UserController.login)
 route.post('/logout', UserController.logout)
-route.get('/test', test, middleware=second)
+
 
 @app.route('/home', methods=['GET'])
 @login_required
@@ -43,6 +43,10 @@ def home():
     return Home_Controller().home()
 
 
+
+
 @app.route('/register', methods=['POST', 'GET'])
 def register():
     return User_Controller().register()
+
+
