@@ -1,4 +1,5 @@
 from flask import request
+from app.framework.requests.validate_request import Validator
 
 def requests(name):
     return request.form.get(name)
@@ -6,6 +7,7 @@ def requests(name):
 
 class Request:
     TYPE = ['integer', 'alpha', 'alphanumeric', 'email']
+
     def register(cls, validation: list):
         for index, value in validation:
             try:
@@ -15,12 +17,16 @@ class Request:
                 print(f'Not found {index}')
         
     def validate(self, index: str, value: str):
-        for i in TYPE:
-            if value == TYPE:
+        for i in Request.TYPE:
+            if value == Request.TYPE:
                 return validate_with(index, value)
     
     def validate_with(self, index: str, value: str):
         if value == 'integer':
-            return validate_integer(value)
+            return Validator.validate_integer(value)
+        if value == 'alphanumeric':
+            return 
     
-    
+
+    def is_validate(self):
+        return True
